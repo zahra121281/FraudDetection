@@ -1,4 +1,4 @@
-# Generated from C:/Term 6/Compiler design project/FraudDetection/grammar/DetectCommands.g4 by ANTLR 4.13.1
+# Generated from E:/Sem6/Compiler/New folder (2)/FraudDetection/grammar/DetectCommands.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .DetectCommandsParser import DetectCommandsParser

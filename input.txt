@@ -1,3 +1,3 @@
-Setting url="fkjdkfjer" username="mvmjf" pass=k932jrrn
-LoadData "vmfmrfdvcdfv"
-Detect customer start_date=2003-02-12 end_date=2004-02-12 limit=8
+Setting url="bolt://localhost:7687" username="neo4j" pass=compiler@proj
+LoadData "./Data.cvx"
+Detect customer startdate=2003-02-12 enddate=2004-02-12 limit=8

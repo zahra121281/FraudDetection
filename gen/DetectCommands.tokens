@@ -13,11 +13,11 @@ T__11=12
 T__12=13
 T__13=14
 STRING=15
-NewLine=16
-NUMBER=17
-DATE=18
-Pass=19
-WS=20
+NUMBER=16
+DATE=17
+Pass=18
+WS=19
+NewLine=20
 'Setting'=1
 'url='=2
 'username='=3
@@ -32,4 +32,4 @@ WS=20
 'enddate='=12
 'limit='=13
 'degree='=14
-'\n'=16
+'\n'=20
