@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/grammar/DetectCommands.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="E:\Sem6\Compiler\New folder (2)\FraudDetection\gen" />
+          <option name="outputDir" value="C:\Term 6\Compiler design project\FraudDetection\gen" />
           <option name="libDir" value="gen" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />

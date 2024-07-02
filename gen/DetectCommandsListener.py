@@ -1,4 +1,4 @@
-# Generated from E:/Sem6/Compiler/New folder (2)/FraudDetection/grammar/DetectCommands.g4 by ANTLR 4.13.1
+# Generated from C:/Term 6/Compiler design project/FraudDetection/grammar/DetectCommands.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .DetectCommandsParser import DetectCommandsParser
@@ -53,6 +53,15 @@ class DetectCommandsListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by DetectCommandsParser#dbname.
+    def enterDbname(self, ctx:DetectCommandsParser.DbnameContext):
+        pass
+
+    # Exit a parse tree produced by DetectCommandsParser#dbname.
+    def exitDbname(self, ctx:DetectCommandsParser.DbnameContext):
+        pass
+
+
     # Enter a parse tree produced by DetectCommandsParser#load_terminal.
     def enterLoad_terminal(self, ctx:DetectCommandsParser.Load_terminalContext):
         pass
@@ -86,6 +95,15 @@ class DetectCommandsListener(ParseTreeListener):
 
     # Exit a parse tree produced by DetectCommandsParser#path.
     def exitPath(self, ctx:DetectCommandsParser.PathContext):
+        pass
+
+
+    # Enter a parse tree produced by DetectCommandsParser#commands.
+    def enterCommands(self, ctx:DetectCommandsParser.CommandsContext):
+        pass
+
+    # Exit a parse tree produced by DetectCommandsParser#commands.
+    def exitCommands(self, ctx:DetectCommandsParser.CommandsContext):
         pass
 
 

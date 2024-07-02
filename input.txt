@@ -2,6 +2,5 @@ Setting url="bolt://localhost:7687" username="neo4j" pass=compiler@proj
 LoadTerminal "./terminal.cvx"
 LoadCustomer "./transaction.cvx"
 LoadTransaction "./customer.cvx"
-Detect customer startdate=2003-02-12 enddate=2004-02-12 limit=8
-Detect name3 startdate=2003-02-12 enddate=2004-04-12
-Detect name4 degree=4 limit=9
+Detect customer startdate=2003-02-12 enddate=2004-02-12
+Detect transactions_of_each_period startdate=2003-02-12 enddate=2004-04-12

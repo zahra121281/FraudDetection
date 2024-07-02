@@ -1,4 +1,4 @@
-# Generated from E:/Sem6/Compiler/New folder (2)/FraudDetection/grammar/DetectCommands.g4 by ANTLR 4.13.1
+# Generated from C:/Term 6/Compiler design project/FraudDetection/grammar/DetectCommands.g4 by ANTLR 4.13.1
 from antlr4 import *
 if "." in __name__:
     from .DetectCommandsParser import DetectCommandsParser
@@ -34,6 +34,11 @@ class DetectCommandsVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by DetectCommandsParser#dbname.
+    def visitDbname(self, ctx:DetectCommandsParser.DbnameContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by DetectCommandsParser#load_terminal.
     def visitLoad_terminal(self, ctx:DetectCommandsParser.Load_terminalContext):
         return self.visitChildren(ctx)
@@ -51,6 +56,11 @@ class DetectCommandsVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by DetectCommandsParser#path.
     def visitPath(self, ctx:DetectCommandsParser.PathContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by DetectCommandsParser#commands.
+    def visitCommands(self, ctx:DetectCommandsParser.CommandsContext):
         return self.visitChildren(ctx)
 
 
