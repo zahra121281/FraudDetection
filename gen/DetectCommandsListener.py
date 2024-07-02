@@ -53,12 +53,39 @@ class DetectCommandsListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by DetectCommandsParser#load_data.
-    def enterLoad_data(self, ctx:DetectCommandsParser.Load_dataContext):
+    # Enter a parse tree produced by DetectCommandsParser#load_terminal.
+    def enterLoad_terminal(self, ctx:DetectCommandsParser.Load_terminalContext):
         pass
 
-    # Exit a parse tree produced by DetectCommandsParser#load_data.
-    def exitLoad_data(self, ctx:DetectCommandsParser.Load_dataContext):
+    # Exit a parse tree produced by DetectCommandsParser#load_terminal.
+    def exitLoad_terminal(self, ctx:DetectCommandsParser.Load_terminalContext):
+        pass
+
+
+    # Enter a parse tree produced by DetectCommandsParser#load_customer.
+    def enterLoad_customer(self, ctx:DetectCommandsParser.Load_customerContext):
+        pass
+
+    # Exit a parse tree produced by DetectCommandsParser#load_customer.
+    def exitLoad_customer(self, ctx:DetectCommandsParser.Load_customerContext):
+        pass
+
+
+    # Enter a parse tree produced by DetectCommandsParser#load_transaction.
+    def enterLoad_transaction(self, ctx:DetectCommandsParser.Load_transactionContext):
+        pass
+
+    # Exit a parse tree produced by DetectCommandsParser#load_transaction.
+    def exitLoad_transaction(self, ctx:DetectCommandsParser.Load_transactionContext):
+        pass
+
+
+    # Enter a parse tree produced by DetectCommandsParser#path.
+    def enterPath(self, ctx:DetectCommandsParser.PathContext):
+        pass
+
+    # Exit a parse tree produced by DetectCommandsParser#path.
+    def exitPath(self, ctx:DetectCommandsParser.PathContext):
         pass
 
 
@@ -140,15 +167,6 @@ class DetectCommandsListener(ParseTreeListener):
 
     # Exit a parse tree produced by DetectCommandsParser#degree.
     def exitDegree(self, ctx:DetectCommandsParser.DegreeContext):
-        pass
-
-
-    # Enter a parse tree produced by DetectCommandsParser#path.
-    def enterPath(self, ctx:DetectCommandsParser.PathContext):
-        pass
-
-    # Exit a parse tree produced by DetectCommandsParser#path.
-    def exitPath(self, ctx:DetectCommandsParser.PathContext):
         pass
 
 

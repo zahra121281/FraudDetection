@@ -5,7 +5,7 @@ from gen.DetectCommandsParser import DetectCommandsParser
 
 class ASTListener(DetectCommandsListener):
     def __init__(self, rule_names):
-        self.overridden_rules = ['start', 'command', 'setting', 'url', 'username', 'pass', 'load_data',
+        self.overridden_rules = ['start', 'command', 'setting', 'url', 'username', 'pass', 'load_terminal', 'load_customer' , 'load_transaction',
                                  'detect_customer', 'detect_terminal', 'detect_date_range', 'detect_degree_limit',
                                  'start_date', 'end_date', 'limit', 'degree']
         self.binary_operator_list = []
@@ -47,8 +47,18 @@ class ASTListener(DetectCommandsListener):
         if self.current_setting:
             self.ast.add_child(self.current_setting, pass_node)
 
-    def exitLoad_data(self, ctx: DetectCommandsParser.Load_dataContext):
-        load_data_node = make_ast_subtree(self.ast, ctx, 'Load_data', True)
+    def exitLoad_terminal(self, ctx:DetectCommandsParser.Load_terminalContext):
+        load_data_node = make_ast_subtree(self.ast, ctx, 'Load_terminal', True)
+        if self.current_setting:
+            self.ast.add_child(self.current_setting, load_data_node)
+
+    def exitLoad_customer(self, ctx:DetectCommandsParser.Load_customerContext):
+        load_data_node = make_ast_subtree(self.ast, ctx, 'Load_customer', True)
+        if self.current_setting:
+            self.ast.add_child(self.current_setting, load_data_node)
+
+    def exitLoad_transaction(self, ctx:DetectCommandsParser.Load_transactionContext):
+        load_data_node = make_ast_subtree(self.ast, ctx, 'Load_transaction', True)
         if self.current_setting:
             self.ast.add_child(self.current_setting, load_data_node)
 

@@ -1,6 +1,6 @@
 grammar DetectCommands;
 
-start : setting load_data command EOF ;
+start : setting load_terminal load_customer load_transaction command+ EOF ;
 
 
 setting : 'Setting' url username pass NewLine*;
@@ -8,7 +8,11 @@ url:'url=' STRING;
 username:'username=' STRING;
 pass:'pass=' Pass;
 
-load_data: 'LoadData' path NewLine*;
+load_terminal: 'LoadTerminal' path  NewLine*;
+load_customer: 'LoadCustomer' path  NewLine*;
+load_transaction: 'LoadTransaction' path  NewLine*;
+path:STRING;
+
 command: 'Detect' ( detect_customer | detect_terminal | detect_date_range | detect_degree_limit ) NewLine*;
 detect_customer: 'customer' start_date end_date  limit  ;
 detect_terminal: 'terminal' start_date  end_date  limit  ;
@@ -18,7 +22,7 @@ start_date:'startdate='DATE;
 end_date:'enddate='DATE;
 limit:'limit='NUMBER ;
 degree:'degree='NUMBER;
-path:STRING;
+
 
 
 
@@ -33,3 +37,4 @@ fragment CHARACTER :  '@' | '-' | '.';
 
 WS: [ \t\r]+ -> skip;
 NewLine : '\n';
+

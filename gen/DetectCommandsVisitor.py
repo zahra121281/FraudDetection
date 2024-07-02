@@ -34,8 +34,23 @@ class DetectCommandsVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by DetectCommandsParser#load_data.
-    def visitLoad_data(self, ctx:DetectCommandsParser.Load_dataContext):
+    # Visit a parse tree produced by DetectCommandsParser#load_terminal.
+    def visitLoad_terminal(self, ctx:DetectCommandsParser.Load_terminalContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by DetectCommandsParser#load_customer.
+    def visitLoad_customer(self, ctx:DetectCommandsParser.Load_customerContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by DetectCommandsParser#load_transaction.
+    def visitLoad_transaction(self, ctx:DetectCommandsParser.Load_transactionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by DetectCommandsParser#path.
+    def visitPath(self, ctx:DetectCommandsParser.PathContext):
         return self.visitChildren(ctx)
 
 
@@ -81,11 +96,6 @@ class DetectCommandsVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by DetectCommandsParser#degree.
     def visitDegree(self, ctx:DetectCommandsParser.DegreeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by DetectCommandsParser#path.
-    def visitPath(self, ctx:DetectCommandsParser.PathContext):
         return self.visitChildren(ctx)
 
 
