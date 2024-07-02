@@ -1,0 +1,8 @@
+DB_URL = "bolt://localhost:7687"  
+USERNAME = "neo4j"
+PASSWORD = "compiler@proj"
+WORKING_DB = "dslcompiler"
+DELETE_TX_CHUNK_SIZE = 1000
+WRITE_TX_CHUNK_SIZE = 1000
+UPDATE_TX_CHUNK_SIZE = 100
+LOADER_DATA_FOLDER = ''
