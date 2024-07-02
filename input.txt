@@ -1,0 +1,5 @@
+Setting url="bolt://localhost:7687" username="neo4j" pass=compiler@proj Databasename="kjdkfjg"
+LoadTerminal "./terminal.csv"
+LoadCustomer "./customer.csv"
+LoadTransaction "./transaction.csv"
+Detect cc_relationship_with_degree degree=6 limit=4

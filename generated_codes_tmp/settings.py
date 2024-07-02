@@ -1,0 +1,10 @@
+USERNAME = "neo4j"
+PASSWORD = "compiler@proj"
+DB_URL = "bolt://localhost:7687"
+WORKING_DB = "kjdkfjg"
+t_path = "./terminal.csv"
+c_path = "./customer.csv"
+tt_path = "./transaction.csv"
+DELETE_TX_CHUNK_SIZE = 1000
+WRITE_TX_CHUNK_SIZE = 1000
+UPDATE_TX_CHUNK_SIZE = 100
