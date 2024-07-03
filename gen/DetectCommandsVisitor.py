@@ -89,6 +89,11 @@ class DetectCommandsVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by DetectCommandsParser#detect_structured_transactions.
+    def visitDetect_structured_transactions(self, ctx:DetectCommandsParser.Detect_structured_transactionsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by DetectCommandsParser#start_date.
     def visitStart_date(self, ctx:DetectCommandsParser.Start_dateContext):
         return self.visitChildren(ctx)

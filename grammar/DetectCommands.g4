@@ -20,6 +20,7 @@ detect_customer: 'customer' start_date end_date  limit  ;
 detect_terminal: 'terminal' start_date  end_date  limit  ;
 detect_date_range: 'transactions_of_each_period' start_date end_date ;
 detect_degree_limit: 'cc_relationship_with_degree' degree limit ;
+detect_structured_transactions : 'structured_transactions' start_date end_date  limit ;
 start_date:'startdate='DATE;
 end_date:'enddate='DATE;
 limit:'limit='NUMBER ;

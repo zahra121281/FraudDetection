@@ -152,6 +152,15 @@ class DetectCommandsListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by DetectCommandsParser#detect_structured_transactions.
+    def enterDetect_structured_transactions(self, ctx:DetectCommandsParser.Detect_structured_transactionsContext):
+        pass
+
+    # Exit a parse tree produced by DetectCommandsParser#detect_structured_transactions.
+    def exitDetect_structured_transactions(self, ctx:DetectCommandsParser.Detect_structured_transactionsContext):
+        pass
+
+
     # Enter a parse tree produced by DetectCommandsParser#start_date.
     def enterStart_date(self, ctx:DetectCommandsParser.Start_dateContext):
         pass
