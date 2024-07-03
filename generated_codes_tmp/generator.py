@@ -41,7 +41,7 @@ def main():
     frauds_percent = 5
     frauds_number = int(transactions_df.count().values[0] / 100 * frauds_percent)
     transactions_df = add_frauds(customer_profiles_table, terminal_profiles_table, transactions_df,
-                                 scenario=2,
+                                 scenario=5,
                                  frauds_number=frauds_number)
 
     if not os.path.exists(DIR_OUTPUT):
@@ -270,7 +270,7 @@ def add_frauds(customer_profiles_table, terminal_profiles_table, transactions_df
 
     elif scenario == 5:
         for _ in range(frauds_number):
-            large_tx = transactions_df.sample(n=1, weights=(transactions_df['TX_AMOUNT'] > 5000)).iloc[0]
+            large_tx = transactions_df.sample(n=1, weights=(transactions_df['TX_AMOUNT'] > 50)).iloc[0]
             customer_id = large_tx['CUSTOMER_ID']
             large_tx_index = large_tx.name
             transactions_df = transactions_df.drop(large_tx_index)

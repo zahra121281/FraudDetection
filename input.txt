@@ -1,5 +1,8 @@
-Setting url="bolt://localhost:7687" username="neo4j" pass=compiler@proj Databasename="kjdkfjg"
-LoadTerminal "./terminal.csv"
-LoadCustomer "./customer.csv"
-LoadTransaction "./transaction.csv"
+Setting url="bolt://localhost:7687" username="neo4j" pass=compiler@proj Databasename="dslcompiler2"
+LoadTerminal "data2\\terminals.csv"
+LoadCustomer "data2\\customers.csv"
+LoadTransaction "data2\\transactions.csv"
 Detect cc_relationship_with_degree degree=6 limit=4
+Detect customer startdate=2020-04-01 enddate=2020-07-01 limit=4
+Detect terminal startdate=2020-04-01 enddate=2020-07-01 limit=4
+Detect structured_transactions startdate=2020-04-01 enddate=2020-07-01 limit=4

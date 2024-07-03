@@ -54,7 +54,7 @@ class ILMapper:
         start_date = self.stack.pop()
         result = ""
         result += "@timeit\n"
-        result += f"def query_structured_transactions(self, start_date={start_date}, end_date={end_date}, limit={limit}):\n"
+        result += f"def query_structured_transactions(self,tx, start_date=\"{start_date}\", end_date=\"{end_date}\", limit={limit}):\n"
         result += "\t\"\"\"Handles detection of structured transactions (Scenario 5)\"\"\"\n"
         result += "\tquery = (\n"
         result += '\t\t"MATCH (c:Customer)-[:HAS_TX]->(tx:Transaction) "\n'
@@ -64,8 +64,7 @@ class ILMapper:
         result += '\t\t"RETURN c, total_amount, num_tx, collect(tx) AS transactions "\n'
         result += '\t\t"ORDER BY total_amount DESC LIMIT $limit"\n'
         result += "\t)\n"
-        result += "\tresult = self.graph.run(query, start_date=start_date, end_date=end_date, limit=limit)\n"
-        result += "\t# self.show_result(result, 'Structured transactions detected: ')\n"
+        result += "\tresult = tx.run(query, start_date=start_date, end_date=end_date, limit=limit)\n"
         result += "\tself.visualize_q5(result)\n"
         result += "\treturn result\n"
         result += self.add_visulization_q5()
@@ -77,7 +76,7 @@ class ILMapper:
 
     def add_visulization_q5(self):
         result = ''
-        result += "def visualize_q5(data):\n"
+        result += "def visualize_q5(self , data):\n"
         result += "\tvisual_graph = Network(height=\"1000px\", width=\"100%\", notebook=False, directed=True)\n"
         result += "\t# Define color for each group\n"
         result += "\tcolor_map = {\n"
@@ -164,7 +163,7 @@ class ILMapper:
         enable_log += "\thandler = logging.StreamHandler(output_stream)\n"
         enable_log += "\thandler.setLevel(level)\n"
         enable_log += "\tlogging.getLogger(\"neo4j\").addHandler(handler)\n"
-        enable_log += "logging.getLogger(\"neo4j\").setLevel(level)"
+        enable_log += "\tlogging.getLogger(\"neo4j\").setLevel(level)\n"
 
         close = ''
         close += "def close(self):\n"
@@ -180,7 +179,7 @@ class ILMapper:
         init = ''
         init += "def __init__(self, uri, user, passwd, database):\n"
         init += "\tself.driver = GraphDatabase.driver(uri, auth=(user, passwd), database=database)\n"
-        new_code = init + close + enable_log + last_code + run_query
+        new_code = init + close + enable_log+ show_res + last_code + run_query
         return new_code
 
     def generate_settings(self ): 
@@ -245,7 +244,7 @@ class ILMapper:
         start_date = self.stack.pop()
         result = ''
         result += "@timeit\n"
-        result += f"def query_customer_payments(self, tx, start_date={start_date}, end_date={end_date}, limit={limit}):\n"
+        result += f"def query_customer_payments(self, tx, start_date=\"{start_date}\", end_date=\"{end_date}\", limit={limit}):\n"
         result += "\t\"\"\"Handles first query of the project proposal\"\"\"\n"
         result += "\tquery = (\n"
         result += "\t\t\"MATCH (c:Customer)-[r:HAS_TX]->(tx:Transaction) \"\n"
@@ -290,7 +289,7 @@ class ILMapper:
         start_date = self.stack.pop()
         result = ''
         result += "@timeit\n"
-        result += f"def query_terminal_fraud_transactions(self, tx, start_date={start_date}, end_date={end_date}, limit={limit}):\n"
+        result += f"def query_terminal_fraud_transactions(self, tx, start_date=\"{start_date}\", end_date=\"{end_date}\", limit={limit}):\n"
         result += "\t\"\"\"Handles second query of the project proposal:\"\"\"\n"
         result += "\tquery = (\n"
         result += "\t\t'MATCH (t:Terminal)<-[:PAYED_TO]-(tx:Transaction) '\n"
@@ -342,7 +341,7 @@ class ILMapper:
         start_date = self.stack.pop()
         result = ''
         result += "@timeit\n"
-        result += f"def query_transactions_of_each_period(self, tx, start_date={start_date}, end_date={end_date}):\n"
+        result += f"def query_transactions_of_each_period(self, tx, start_date=\"{start_date}\", end_date=\"{end_date}\"):\n"
         result += "\t\"\"\"Handles fourth query of the project proposal:\"\"\"\n"
         result += "\tquery = (\n"
         result += "\t\t'MATCH (t:Terminal)<-[:PAYED_TO]-(tx:Transaction) '\n"
@@ -407,7 +406,7 @@ class ILMapper:
         result += "\t\"\"\"Handles third query of the project proposal:\"\"\"\n"
         result += "\tn = (k * 4) + 4\n"
         result += "\tquery = (\n"
-        result += "\t\tf\"MATCH path=(c1:Customer)-[*{{n}}]-(c2:Customer) \\n\"\n"
+        result += "\t\tf\"MATCH path=(c1:Customer)-[*{n}]-(c2:Customer) \\n\"\n"
         result += "\t\tf\"RETURN path \\n\"\n"
         result += "\t\tf\"LIMIT $limit\"\n"
         result += "\t)\n"
@@ -415,12 +414,12 @@ class ILMapper:
         # result += "\t# self.show_result(result, f'Result of Co-Customer relationship with degree {{k}}: ')\n"
         result += "\tself.visualize_result_Query3(result)\n"
         result += "\tquery = (\n"
-        result += "\t\tf\"MATCH path=(c1:Customer)-[*{{n}}]-(c2:Customer) \\n\"\n"
+        result += "\t\tf\"MATCH path=(c1:Customer)-[*{n}]-(c2:Customer) \\n\"\n"
         result += "\t\tf\"RETURN c1, c2\\n\"\n"
         result += "\t\tf\"LIMIT $limit\"\n"
         result += "\t)\n"
         result += "\tresult = tx.run(query, limit=limit)\n"
-        result += "\tself.show_result_function( result ,\"result of Query3\")"
+        result += "\tself.show_result_function( result ,\"result of Query3\")\n"
         result += "\treturn result\n"
 
         result += self.add_visualization_q3()
