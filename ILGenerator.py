@@ -126,6 +126,7 @@ class ILMapper:
             "from neo4j import GraphDatabase\n"
             "import  settings\n"
             "from timing import timeit\n"
+            "import pandas as pd\n"
         )
         last_code = ''
         last_code += imports
@@ -169,11 +170,17 @@ class ILMapper:
         close += "def close(self):\n"
         close += "\tself.driver.close()\n"
 
+        show_res = ''
+        show_res += "def show_result_function(self , result , msg):\n"
+        show_res += "\tprint(msg)\n"
+        show_res += "\tdata = [record.data() for record in result]\n"
+        show_res += "\tdf = pd.DataFrame(data)\n"
+        show_res += "\tprint(df)\n"
+
         init = ''
         init += "def __init__(self, uri, user, passwd, database):\n"
         init += "\tself.driver = GraphDatabase.driver(uri, auth=(user, passwd), database=database)\n"
         new_code = init + close + enable_log + last_code + run_query
-
         return new_code
 
     def generate_settings(self ): 
@@ -299,36 +306,34 @@ class ILMapper:
         result += "\t\t\t\t\tstart_date=start_date,\n"
         result += "\t\t\t\t\tend_date=end_date,\n"
         result += "\t\t\t\t\tlimit=limit)\n"
-        result += "\t# self.show_result(result, 'Result of terminal fraud transactions: ')\n"
-        result += "\tself.visualize_result_Query2(result)\n"
+        # result += "\tself.visualize_result_Query2(result)\n"
+        result += "\tself.show_result_function( result ,\"result of Query2\")\n" #self.add_visualization_q2()
         result += "\treturn result\n"
-        result += self.add_visualization_q2()
         last_code = self.py_codes.pop()
         if (last_code == "empty"):
             return result
         last_code += result 
         return last_code
 
-    def add_visualization_q2(self):
-        result = ''
-        result += "def visualize_result_Query2(self, data):\n"
-        result += "\tvisual_graph = Network()\n"
-        result += "\ti = 0\n"
-        result += "\tfor record in data:\n"
-        result += "\t\tterminal = record[0]\n"
-        result += "\t\ttx_count = record[1]\n"
-        result += "\t\tavg_tx = record[2]\n"
-        result += "\t\tterminal_id = terminal.id\n"
-        result += "\t\tterminal_name = f\"Terminal {terminal_id}\"\n"
-        result += "\t\tvisual_graph.add_node(terminal_id, label=terminal_name, group=\"Terminal\")\n"
-        result += "\t\tvisual_graph.add_node(f\"AvgTx_{i}\", label=f\"AvgTx: {avg_tx:.2f}\", group=\"AverageTx\")\n"
-        result += "\t\tvisual_graph.add_node(f\"Count_{i}\", label=f\"Count: {tx_count}\", group=\"TransactionCount\")\n"
-        result += "\t\tvisual_graph.add_edge(terminal_id, f\"AvgTx_{i}\", title=f\"Average Transaction: {avg_tx:.2f}\")\n"
-        result += "\t\tvisual_graph.add_edge(terminal_id, f\"Count_{i}\", title=f\"Suspicious Transactions: {tx_count}\")\n"
-        result += "\t\ti += 1\n"
-        result += "\tvisual_graph.show('terminal_fraud_transactions.html', notebook=False)\n"
-        return result
-
+    # def add_visualization_q2(self):
+    #     result = ''
+    #     result += "def visualize_result_Query2(self, data):\n"
+    #     result += "\tvisual_graph = Network()\n"
+    #     result += "\ti = 0\n"
+    #     result += "\tfor record in data:\n"
+    #     result += "\t\tterminal = record[0]\n"
+    #     result += "\t\ttx_count = record[1]\n"
+    #     result += "\t\tavg_tx = record[2]\n"
+    #     result += "\t\tterminal_id = terminal.id\n"
+    #     result += "\t\tterminal_name = f\"Terminal {terminal_id}\"\n"
+    #     result += "\t\tvisual_graph.add_node(terminal_id, label=terminal_name, group=\"Terminal\")\n"
+    #     result += "\t\tvisual_graph.add_node(f\"AvgTx_{i}\", label=f\"AvgTx: {avg_tx:.2f}\", group=\"AverageTx\")\n"
+    #     result += "\t\tvisual_graph.add_node(f\"Count_{i}\", label=f\"Count: {tx_count}\", group=\"TransactionCount\")\n"
+    #     result += "\t\tvisual_graph.add_edge(terminal_id, f\"AvgTx_{i}\", title=f\"Average Transaction: {avg_tx:.2f}\")\n"
+    #     result += "\t\tvisual_graph.add_edge(terminal_id, f\"Count_{i}\", title=f\"Suspicious Transactions: {tx_count}\")\n"
+    #     result += "\t\ti += 1\n"
+    #     result += "\tvisual_graph.show('terminal_fraud_transactions.html', notebook=False)\n"
+    #     return result
 
 
     def detect_date_range(self): 
@@ -352,45 +357,44 @@ class ILMapper:
         result += "\t\t'RETURN p, ctx, count(tx)'\n"
         result += "\t)\n"
         result += "\tresult = tx.run(query, start_date=start_date, end_date=end_date)\n"
-        result += "\t# self.show_result(result, 'Result of transactions and fraud transactions for each period: ')\n"
-        result += "\tself.visualize_result_Query3(result)\n"
+        # result += "\t# self.show_result(result, 'Result of transactions and fraud transactions for each period: ')\n"
+        result += "\tself.show_result_function( result ,\"result of Query4\")\n"
         result += "\treturn result\n"
-        result += self.add_visulization_q4()
         last_code = self.py_codes.pop()
         if (last_code == "empty"):
             return result
         last_code += result 
         return last_code
         
-    def add_visulization_q4(self):
-        result = ''
-        result += "def visualize_result_Query4(self, data):\n"
-        result += "\tvisual_graph = Network(height=\"1000px\", width=\"100%\", notebook=False, directed=True)\n"
-        result += "\t# Define color for each group\n"
-        result += "\tcolor_map = {\n"
-        result += "\t\t\"Terminal\": \"#99ccff\",   # Light blue\n"
-        result += "\t\t\"Transaction\": \"#99ff99\" # Light green\n"
-        result += "\t}\n"
-        result += "\t\n"
-        result += "\t# Dictionary to store node IDs based on transaction periods\n"
-        result += "\tperiod_nodes = {}\n"
-        result += "\t\n"
-        result += "\tfor record in data:\n"
-        result += "\t\tperiod = record['p']\n"
-        result += "\t\tcount_ctx = record['ctx']\n"
-        result += "\t\tcount_tx = record['count(tx)']\n"
-        result += "\t\t\n"
-        result += "\t\tif period not in period_nodes:\n"
-        result += "\t\t\tperiod_nodes[period] = visual_graph.add_node(period, label=f\"Period: {period}\", group=\"Transaction\")\n"
-        result += "\t\t\n"
-        result += "\t\tcount_ctx_node = visual_graph.add_node(f\"ctx_{period}\", label=f\"Fraud Transactions: {count_ctx}\", group=\"Transaction\")\n"
-        result += "\t\tcount_tx_node = visual_graph.add_node(f\"count_tx_{period}\", label=f\"Total Transactions: {count_tx}\", group=\"Transaction\")\n"
-        result += "\t\t\n"
-        result += "\t\tvisual_graph.add_edge(period, f\"ctx_{period}\", title=\"Fraud Transactions\")\n"
-        result += "\t\tvisual_graph.add_edge(period, f\"count_tx_{period}\", title=\"Total Transactions\")\n"
-        result += "\t\n"
-        result += "\tvisual_graph.show('transactions_of_each_period.html', notebook=False)\n"
-        return result
+    # def add_visulization_q4(self):
+    #     result = ''
+    #     result += "def visualize_result_Query4(self, data):\n"
+    #     result += "\tvisual_graph = Network(height=\"1000px\", width=\"100%\", notebook=False, directed=True)\n"
+    #     result += "\t# Define color for each group\n"
+    #     result += "\tcolor_map = {\n"
+    #     result += "\t\t\"Terminal\": \"#99ccff\",   # Light blue\n"
+    #     result += "\t\t\"Transaction\": \"#99ff99\" # Light green\n"
+    #     result += "\t}\n"
+    #     result += "\t\n"
+    #     result += "\t# Dictionary to store node IDs based on transaction periods\n"
+    #     result += "\tperiod_nodes = {}\n"
+    #     result += "\t\n"
+    #     result += "\tfor record in data:\n"
+    #     result += "\t\tperiod = record['p']\n"
+    #     result += "\t\tcount_ctx = record['ctx']\n"
+    #     result += "\t\tcount_tx = record['count(tx)']\n"
+    #     result += "\t\t\n"
+    #     result += "\t\tif period not in period_nodes:\n"
+    #     result += "\t\t\tperiod_nodes[period] = visual_graph.add_node(period, label=f\"Period: {period}\", group=\"Transaction\")\n"
+    #     result += "\t\t\n"
+    #     result += "\t\tcount_ctx_node = visual_graph.add_node(f\"ctx_{period}\", label=f\"Fraud Transactions: {count_ctx}\", group=\"Transaction\")\n"
+    #     result += "\t\tcount_tx_node = visual_graph.add_node(f\"count_tx_{period}\", label=f\"Total Transactions: {count_tx}\", group=\"Transaction\")\n"
+    #     result += "\t\t\n"
+    #     result += "\t\tvisual_graph.add_edge(period, f\"ctx_{period}\", title=\"Fraud Transactions\")\n"
+    #     result += "\t\tvisual_graph.add_edge(period, f\"count_tx_{period}\", title=\"Total Transactions\")\n"
+    #     result += "\t\n"
+    #     result += "\tvisual_graph.show('transactions_of_each_period.html', notebook=False)\n"
+    #     return result
 
 
     def detect_degree_limit(self):
@@ -408,9 +412,17 @@ class ILMapper:
         result += "\t\tf\"LIMIT $limit\"\n"
         result += "\t)\n"
         result += "\tresult = tx.run(query, limit=limit)\n"
-        result += "\t# self.show_result(result, f'Result of Co-Customer relationship with degree {{k}}: ')\n"
+        # result += "\t# self.show_result(result, f'Result of Co-Customer relationship with degree {{k}}: ')\n"
         result += "\tself.visualize_result_Query3(result)\n"
+        result += "\tquery = (\n"
+        result += "\t\tf\"MATCH path=(c1:Customer)-[*{{n}}]-(c2:Customer) \\n\"\n"
+        result += "\t\tf\"RETURN c1, c2\\n\"\n"
+        result += "\t\tf\"LIMIT $limit\"\n"
+        result += "\t)\n"
+        result += "\tresult = tx.run(query, limit=limit)\n"
+        result += "\tself.show_result_function( result ,\"result of Query3\")"
         result += "\treturn result\n"
+
         result += self.add_visualization_q3()
         last_code = self.py_codes.pop()
         if (last_code == "empty"):
